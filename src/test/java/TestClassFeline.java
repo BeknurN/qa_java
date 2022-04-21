@@ -1,10 +1,8 @@
 import com.example.Feline;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class TestClassFeline {
@@ -15,8 +13,8 @@ public class TestClassFeline {
         int kittens = 1;
         int actualKittens = feline.getKittens();
         assertEquals(kittens,actualKittens);
-
     }
+
     //Семейство кошки
     @Test
     public void checkingFamily(){
@@ -34,6 +32,7 @@ public class TestClassFeline {
         List<String> actualEatFood = feline.getFood("Хищник");
         assertEquals(expectedEatFood, actualEatFood);
     }
+
     //Проверка что есть еда
     @Test
     public void checkingHaveFood() throws Exception {

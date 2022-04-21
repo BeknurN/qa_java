@@ -4,14 +4,13 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 
 public class TestClassCat {
     //Проверка что кот говорит мяу
     @Test
-    public void CatSay(){
+    public void catSay(){
         Cat cat = new Cat(new Feline());
         String voice = "Мяу";
         String actualVoice = cat.getSound();
