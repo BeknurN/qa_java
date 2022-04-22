@@ -31,13 +31,22 @@ public class TestClassLion {
 
     @Test(expected = Exception.class)
     public void shouldLionWithIncorrectSexHasError() throws Exception {
-        new Lion("Зонтик ", new Feline());
+        new Lion("Зонтик", new Feline());
     }
 
     @Test
     public void lionShouldHaveKittens() throws Exception {
         Assert.assertEquals(new Lion("Самец", new Feline()).getKittens(),1);
     }
+
 }
+
+
+
+
+
+
+
+
 
 
