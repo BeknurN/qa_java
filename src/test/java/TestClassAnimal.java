@@ -1,14 +1,10 @@
-
+/**
 import com.example.Animal;
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class TestClassAnimal {
-
     @Test
     public void shouldPredatorAnimalHasFood() throws Exception {
         Animal animal = new Animal();
@@ -34,4 +30,4 @@ public class TestClassAnimal {
         String actualFamily = animal.getFamily();
         Assert.assertEquals(expectedFamily,actualFamily);
     }
-}
+}/**/

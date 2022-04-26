@@ -1,52 +1,78 @@
 import com.example.Feline;
 import com.example.Lion;
-import org.junit.Assert;
-import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
-
+@RunWith(Parameterized.class)
 public class TestClassLion {
-
-    @Before
-    public void init(){
-        MockitoAnnotations.openMocks(this);
-    }
 
     @Mock
     Feline feline;
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
+
+    @Parameterized.Parameter
+    public String sex;
+    @Parameterized.Parameter(value = 1)
+    public Boolean hasMane;
+    @Parameterized.Parameter(value = 2)
+    public boolean exception;
+
+    @Parameterized.Parameters(name = "{index}: sex - {0}, hasMane - {1}, exception - {2}")
+    public static Object[][] data() {
+        return new Object[][]{
+                new Object[] {"Самец", true, true},
+                new Object[] {"Самка", false, true},
+                new Object[] {"Оно", null, false}
+        };
+    }
 
     @Test
-    public void checkLionShouldHasFood() throws Exception {
-        Lion lion= new Lion("Самец", new Feline());
-        Mockito.when(feline.getFood("Хищник")).thenReturn(List.of("Животные", "Птицы", "Рыба"));
-        Assert.assertEquals(feline.getFood("Хищник"),lion.getFood());
-    }
-
-    @Test(expected = Exception.class)
-    public void shouldLionWithIncorrectSexHasError() throws Exception {
-        new Lion("Зонтик", new Feline());
+    public void lionShouldGetFood() {
+        try {
+            String animalKind = "Хищник";
+            Lion lion = new Lion(sex, feline);
+            List<String> food = List.of("Еда");
+            when(feline.getFood(animalKind)).thenReturn(food);
+            assertEquals(food, lion.getFood());
+        } catch (Exception ex) {
+            if (exception) {
+                fail();
+            }
+        }
     }
 
     @Test
-    public void lionShouldHaveKittens() throws Exception {
-        Assert.assertEquals(new Lion("Самец", new Feline()).getKittens(),1);
+    public void lionShouldHaveKittens() {
+        try {
+            Lion lion = new Lion(sex, feline);
+            when(feline.getKittens()).thenReturn(1);
+            assertEquals(1, lion.getKittens());
+        } catch (Exception ex) {
+            if (exception) {
+                fail();
+            }
+        }
     }
 
+    @Test
+    public void lionDoesHaveMane() {
+        try {
+            Lion lion = new Lion(sex, feline);
+            assertEquals(hasMane, lion.doesHaveMane());
+        } catch (Exception ex) {
+            if (exception) {
+                fail();
+            }
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
